@@ -1,0 +1,7 @@
+syntax = "proto3";
+package proto;
+
+message VINUpdate {
+    repeated string addedVINs = 1;
+    repeated string deletedVINs = 2;
+}

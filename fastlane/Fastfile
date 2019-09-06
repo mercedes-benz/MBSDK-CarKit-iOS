@@ -1,0 +1,172 @@
+
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.97.0"
+
+default_platform :ios
+
+opt_out_usage
+skip_docs
+
+fastlane_build_directory = "fastlane_builds"
+test_build_directory = fastlane_build_directory + "/Tests"
+sonar_report_directory = "sonar_reports"
+
+pod_name = "MBCarKit"
+podspec_file_path = pod_name + ".podspec"
+
+platform :ios do
+
+  before_all do |lane, options|
+    
+  end
+  
+  # Verify Pull-Request
+  # inlcudes:
+  # - pod lib lint
+  # - run unit tests
+  lane :verify_pr do |options|
+
+    lib_lint
+    test_local
+
+  end
+
+
+  # Nightly
+  # inlcudes:
+  # - pod lib lint
+  # - SonarQube
+  lane :run_nightly do |options|
+
+    ensure_git_branch(
+      branch: 'develop'
+    )
+
+    lib_lint
+
+    test_local
+
+    # sonar
+
+  end
+
+
+  # Publish a new version of the pod
+  # inlcudes:
+  # - pod lib lint
+  # - run unit tests
+  # - increment version number + commiting podspec
+  # - set version tag
+  # - push podspec to podspec repo
+  # - merge to master
+  lane :publish_pod do |options|
+
+    ensure_git_branch(
+      branch: 'develop'
+    )
+
+    version = options[:version]
+    if version == nil
+
+      UI.user_error! "Missing version parameter"
+
+    end
+
+    ensure_git_status_clean
+
+    lib_lint
+
+    test_local
+
+    clear_derived_data
+
+    version_bump_podspec(
+      path: podspec_file_path,
+      version_number: version
+    )
+
+    git_commit(
+      path: podspec_file_path,
+      message: "Update podspec: " + pod_name + " " + version
+    )
+
+    add_git_tag(
+      tag: version
+    )
+
+    # Push to origin
+    push_to_git_remote(    
+      remote: 'origin',    
+      local_branch: git_branch,  
+      remote_branch: git_branch, 
+      force: true              
+    )
+
+    # Update PodSpecs-Repo
+    pod_push(
+      path: podspec_file_path,
+      allow_warnings: true
+    )
+
+    merge_to_master
+
+  end
+
+
+  # Private lanes --------------------------------------------------------------
+
+  lane :lib_lint do |options|
+
+    clear_derived_data
+
+    pod_lib_lint(
+      verbose: true,
+      private: true,
+      allow_warnings: true
+    )
+
+  end
+
+
+  private_lane :test_local do |options|
+
+    cocoapods(podfile: "./")
+
+    scan
+
+  end
+
+
+  private_lane :merge_to_master do |options|
+
+    # reset the changed Podfile.lock
+    reset_git_repo(
+      force: true,
+      files: [
+        "./Podfile.lock"
+      ]
+    )
+
+    sh("git", "checkout", "develop")
+    sh("git", "pull", "origin", "develop")
+    sh("git", "checkout", "master")
+    sh("git", "pull", "origin", "master")
+    sh("git", "merge", "develop")
+    sh("git", "push", "origin", "master")
+  end
+
+
+  after_all do |lane, options|
+
+    # do something
+
+  end
+
+  error do |lane, exception, options|
+
+    # do something
+
+  end
+end

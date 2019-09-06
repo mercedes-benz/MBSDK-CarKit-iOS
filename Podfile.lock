@@ -1,0 +1,78 @@
+PODS:
+  - Alamofire (4.9.0)
+  - MBCommonKit (1.0.0):
+    - MBCommonKit/All (= 1.0.0)
+  - MBCommonKit/All (1.0.0):
+    - MBCommonKit/Logger
+    - MBCommonKit/Protocols
+    - MBCommonKit/Tracking
+  - MBCommonKit/Logger (1.0.0)
+  - MBCommonKit/Protocols (1.0.0)
+  - MBCommonKit/Tracking (1.0.0)
+  - MBNetworkKit/Basic (1.0.0):
+    - Alamofire (~> 4.7)
+  - MBNetworkKit/Socket (1.0.0):
+    - MBCommonKit/Logger (~> 1.0)
+    - Starscream (~> 3.0)
+  - MBRealmKit (1.0.0):
+    - MBCommonKit/Logger (~> 1.0)
+    - MBRealmKit/All (= 1.0.0)
+    - RealmSwift (~> 3.0)
+  - MBRealmKit/All (1.0.0):
+    - MBCommonKit/Logger (~> 1.0)
+    - MBRealmKit/Layer
+    - MBRealmKit/UI
+    - RealmSwift (~> 3.0)
+  - MBRealmKit/Layer (1.0.0):
+    - MBCommonKit/Logger (~> 1.0)
+    - RealmSwift (~> 3.0)
+  - MBRealmKit/UI (1.0.0):
+    - MBCommonKit/Logger (~> 1.0)
+    - RealmSwift (~> 3.0)
+  - Realm (3.17.3):
+    - Realm/Headers (= 3.17.3)
+  - Realm/Headers (3.17.3)
+  - RealmSwift (3.17.3):
+    - Realm (= 3.17.3)
+  - Sourcery (0.17.0)
+  - Starscream (3.1.0)
+  - SwiftLint (0.35.0)
+  - SwiftProtobuf (1.6.0)
+
+DEPENDENCIES:
+  - MBCommonKit (~> 1.0)
+  - MBNetworkKit/Basic (~> 1.0)
+  - MBNetworkKit/Socket (~> 1.0)
+  - MBRealmKit (~> 1.0)
+  - Sourcery (~> 0.16)
+  - SwiftLint (~> 0.30)
+  - SwiftProtobuf (~> 1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - MBCommonKit
+    - MBNetworkKit
+    - MBRealmKit
+    - Realm
+    - RealmSwift
+    - Sourcery
+    - Starscream
+    - SwiftLint
+    - SwiftProtobuf
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  MBCommonKit: fda791a56cf83580b18a6217319d250b1957d0a8
+  MBNetworkKit: 372c6ed6def49641ccc8ca3ea42f0d41e8f9df2e
+  MBRealmKit: b294eb49c38b152047517074b813234736002714
+  Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
+  RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
+  Sourcery: 3ed61be7c8a1218fce349266139379dba477efe0
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  SwiftLint: 5553187048b900c91aa03552807681bb6b027846
+  SwiftProtobuf: e905ca1366405696411aaf174411c4b19c0ef73d
+
+PODFILE CHECKSUM: 48aae797e63eac2b804a55e6883a69cde29920c4
+
+COCOAPODS: 1.7.5

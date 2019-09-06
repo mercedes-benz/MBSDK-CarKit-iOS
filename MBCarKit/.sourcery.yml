@@ -1,0 +1,8 @@
+sources:
+  - ./MBCarKit/Tracking/TrackingService.swift
+
+templates:
+  - ./MBCarKit/Generated/Templates/TrackingEvent.stencil
+
+output:
+  ./MBCarKit/Generated/Sourcery/TrackingEvent.swift
