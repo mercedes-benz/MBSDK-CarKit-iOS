@@ -1109,9 +1109,10 @@ class ProtoMessageParser {
 				return nil
 		}
 		
+		let attributeUnit = VehicleAttributeUnitModel<T>(value: temperaturePoint.temperatureDisplayValue, unit: T)
 		return VehicleStatusAttributeModel<Double, T>(status: attribute.status,
 													  timestampInMs: attribute.timestampInMs,
-													  unit: nil,
+													  unit: attributeUnit,
 													  value: temperaturePoint.temperature)
 	}
 	
