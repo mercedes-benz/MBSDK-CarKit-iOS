@@ -1948,6 +1948,13 @@ struct Proto_TemperatureConfigure {
       case rearCenter // = 6
       case rear2Left // = 7
       case rear2Right // = 8
+
+      /// PLEASE BE AWARE OF THE FOLLOWING BEFORE ADDING NEW ZONES:
+      /// Currently there is a bug in vehicle API, that we need to send the zones in the correct order. Otherwise the request will be rejected.
+      /// The order needs to be like the following:
+      /// Front before rear before rear2
+      /// Left before right - There is no center zone if there are left and right zones in this row
+      /// As this is already the order like specified here, this needs to be considered on adding new zones.
       case rear2Center // = 9
       static let unknownZone = unknown
       case UNRECOGNIZED(Int)

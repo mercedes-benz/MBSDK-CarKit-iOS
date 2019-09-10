@@ -7,6 +7,7 @@ import "google/protobuf/struct.proto";
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 option (gogoproto.goproto_enum_prefix_all) = true;
+option java_package = "com.daimler.mbrsmycar.proto";
 
 // Sending direction: App -> BFF -> AppTwin
 message AcknowledgeAppTwinCommandStatusUpdatesByVIN {

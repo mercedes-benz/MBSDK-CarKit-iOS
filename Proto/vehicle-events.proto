@@ -6,6 +6,8 @@ import "vehicle-commands.proto";
 import "protos.proto";
 import "vehicleapi.proto";
 
+option java_package = "com.daimler.mbrsmycar.proto";
+
 // Sending direction: App <- BFF <- AppTwin
 message VEPUpdate {
 
@@ -150,6 +152,7 @@ message VehicleAttributeStatus {
     StateOfChargeProfileValue state_of_charge_profile_value = 23;
     WeeklySettingsHeadUnitValue weekly_settings_head_unit_value = 24;
     SpeedAlertConfigurationValue speed_alert_configuration_value = 27;
+    EcoHistogramValue eco_histogram_value = 28;
   }
 }
 
@@ -165,6 +168,15 @@ enum AttributeStatus {
   VALUE_INVALID = 3;
   // Vehicle does not support this attribute (e.g. does not have the sensor etc.)
   VALUE_NOT_AVAILABLE = 4;
+}
+
+message EcoHistogramValue {
+  repeated EcoHistogramBin eco_histogram_bins = 1;
+}
+
+message EcoHistogramBin {
+  double interval = 1;
+  double value = 2;
 }
 
 message SpeedAlertConfigurationValue {
@@ -197,6 +209,7 @@ message TemperaturePointsValue {
 message TemperaturePoint {
   string zone = 1;
   double temperature = 2;
+  string temperature_display_value = 3;
 }
 
 message WeekdayTariffValue {

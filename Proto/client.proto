@@ -8,6 +8,8 @@ import "vehicle-commands.proto";
 import "vehicle-events.proto";
 import "vehicleapi.proto";
 
+option java_package = "com.daimler.mbrsmycar.proto";
+
 // message that is sent from the client
 // Sending direction: App -> BFF (-> AppTwin)
 message ClientMessage {

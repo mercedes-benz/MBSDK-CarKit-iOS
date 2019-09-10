@@ -324,6 +324,14 @@ struct Proto_VehicleAttributeStatus {
     set {_uniqueStorage()._attributeType = .speedAlertConfigurationValue(newValue)}
   }
 
+  var ecoHistogramValue: Proto_EcoHistogramValue {
+    get {
+      if case .ecoHistogramValue(let v)? = _storage._attributeType {return v}
+      return Proto_EcoHistogramValue()
+    }
+    set {_uniqueStorage()._attributeType = .ecoHistogramValue(newValue)}
+  }
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum OneOf_DisplayUnit: Equatable {
@@ -371,6 +379,7 @@ struct Proto_VehicleAttributeStatus {
     case stateOfChargeProfileValue(Proto_StateOfChargeProfileValue)
     case weeklySettingsHeadUnitValue(Proto_WeeklySettingsHeadUnitValue)
     case speedAlertConfigurationValue(Proto_SpeedAlertConfigurationValue)
+    case ecoHistogramValue(Proto_EcoHistogramValue)
 
   #if !swift(>=4.1)
     static func ==(lhs: Proto_VehicleAttributeStatus.OneOf_AttributeType, rhs: Proto_VehicleAttributeStatus.OneOf_AttributeType) -> Bool {
@@ -387,6 +396,7 @@ struct Proto_VehicleAttributeStatus {
       case (.stateOfChargeProfileValue(let l), .stateOfChargeProfileValue(let r)): return l == r
       case (.weeklySettingsHeadUnitValue(let l), .weeklySettingsHeadUnitValue(let r)): return l == r
       case (.speedAlertConfigurationValue(let l), .speedAlertConfigurationValue(let r)): return l == r
+      case (.ecoHistogramValue(let l), .ecoHistogramValue(let r)): return l == r
       default: return false
       }
     }
@@ -864,6 +874,32 @@ extension Proto_VehicleAttributeStatus.ClockHourUnit: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+struct Proto_EcoHistogramValue {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var ecoHistogramBins: [Proto_EcoHistogramBin] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Proto_EcoHistogramBin {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var interval: Double = 0
+
+  var value: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Proto_SpeedAlertConfigurationValue {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -941,6 +977,8 @@ struct Proto_TemperaturePoint {
   var zone: String = String()
 
   var temperature: Double = 0
+
+  var temperatureDisplayValue: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1537,6 +1575,7 @@ extension Proto_VehicleAttributeStatus: SwiftProtobuf.Message, SwiftProtobuf._Me
     23: .standard(proto: "state_of_charge_profile_value"),
     24: .standard(proto: "weekly_settings_head_unit_value"),
     27: .standard(proto: "speed_alert_configuration_value"),
+    28: .standard(proto: "eco_histogram_value"),
   ]
 
   fileprivate class _StorageClass {
@@ -1708,6 +1747,14 @@ extension Proto_VehicleAttributeStatus: SwiftProtobuf.Message, SwiftProtobuf._Me
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._attributeType = .speedAlertConfigurationValue(v)}
+        case 28:
+          var v: Proto_EcoHistogramValue?
+          if let current = _storage._attributeType {
+            try decoder.handleConflictingOneOf()
+            if case .ecoHistogramValue(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._attributeType = .ecoHistogramValue(v)}
         default: break
         }
       }
@@ -1789,8 +1836,13 @@ extension Proto_VehicleAttributeStatus: SwiftProtobuf.Message, SwiftProtobuf._Me
       case nil: break
       default: break
       }
-      if case .speedAlertConfigurationValue(let v)? = _storage._attributeType {
+      switch _storage._attributeType {
+      case .speedAlertConfigurationValue(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
+      case .ecoHistogramValue(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 28)
+      case nil: break
+      default: break
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -1901,6 +1953,70 @@ extension Proto_VehicleAttributeStatus.ClockHourUnit: SwiftProtobuf._ProtoNamePr
     1: .same(proto: "T12H"),
     2: .same(proto: "T24H"),
   ]
+}
+
+extension Proto_EcoHistogramValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".EcoHistogramValue"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "eco_histogram_bins"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.ecoHistogramBins)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ecoHistogramBins.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.ecoHistogramBins, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Proto_EcoHistogramValue, rhs: Proto_EcoHistogramValue) -> Bool {
+    if lhs.ecoHistogramBins != rhs.ecoHistogramBins {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Proto_EcoHistogramBin: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".EcoHistogramBin"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "interval"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.interval)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.interval != 0 {
+      try visitor.visitSingularDoubleField(value: self.interval, fieldNumber: 1)
+    }
+    if self.value != 0 {
+      try visitor.visitSingularDoubleField(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Proto_EcoHistogramBin, rhs: Proto_EcoHistogramBin) -> Bool {
+    if lhs.interval != rhs.interval {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Proto_SpeedAlertConfigurationValue: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -2065,6 +2181,7 @@ extension Proto_TemperaturePoint: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "zone"),
     2: .same(proto: "temperature"),
+    3: .standard(proto: "temperature_display_value"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2072,6 +2189,7 @@ extension Proto_TemperaturePoint: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.zone)
       case 2: try decoder.decodeSingularDoubleField(value: &self.temperature)
+      case 3: try decoder.decodeSingularStringField(value: &self.temperatureDisplayValue)
       default: break
       }
     }
@@ -2084,12 +2202,16 @@ extension Proto_TemperaturePoint: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if self.temperature != 0 {
       try visitor.visitSingularDoubleField(value: self.temperature, fieldNumber: 2)
     }
+    if !self.temperatureDisplayValue.isEmpty {
+      try visitor.visitSingularStringField(value: self.temperatureDisplayValue, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Proto_TemperaturePoint, rhs: Proto_TemperaturePoint) -> Bool {
     if lhs.zone != rhs.zone {return false}
     if lhs.temperature != rhs.temperature {return false}
+    if lhs.temperatureDisplayValue != rhs.temperatureDisplayValue {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

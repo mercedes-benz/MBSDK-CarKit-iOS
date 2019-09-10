@@ -3,6 +3,7 @@ package proto;
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 option (gogoproto.goproto_enum_prefix_all) = true;
+option java_package = "com.daimler.mbrsmycar.proto";
 
 // Part of a CommandStatusUpdate
 // Sending direction: App <- BFF <- AppTwin
@@ -510,6 +511,12 @@ message TemperatureConfigure {
       rear2Left = 7;
       rear2Right = 8;
       rear2Center = 9;
+      // PLEASE BE AWARE OF THE FOLLOWING BEFORE ADDING NEW ZONES:
+      // Currently there is a bug in vehicle API, that we need to send the zones in the correct order. Otherwise the request will be rejected.
+      // The order needs to be like the following:
+      // Front before rear before rear2
+      // Left before right - There is no center zone if there are left and right zones in this row
+      // As this is already the order like specified here, this needs to be considered on adding new zones.
 
       UNKNOWN_ZONE = 0;
       FRONT_LEFT = 1;
@@ -521,6 +528,12 @@ message TemperatureConfigure {
       REAR_2_LEFT = 7;
       REAR_2_RIGHT = 8;
       REAR_2_CENTER = 9;
+      // PLEASE BE AWARE OF THE FOLLOWING BEFORE ADDING NEW ZONES:
+      // Currently there is a bug in vehicle API, that we need to send the zones in the correct order. Otherwise the request will be rejected.
+      // The order needs to be like the following:
+      // Front before rear before rear2
+      // Left before right - There is no center zone if there are left and right zones in this row
+      // As this is already the order like specified here, this needs to be considered on adding new zones.
     }
     Zone zone = 1 [ json_name = "zone" ];
 
