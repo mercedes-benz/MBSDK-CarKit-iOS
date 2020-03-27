@@ -1,0 +1,83 @@
+PODS:
+  - Alamofire (4.9.1)
+  - MBCommonKit (2.0.0):
+    - MBCommonKit/All (= 2.0.0)
+  - MBCommonKit/All (2.0.0):
+    - MBCommonKit/Logger
+    - MBCommonKit/Protocols
+    - MBCommonKit/Tracking
+  - MBCommonKit/Logger (2.0.0)
+  - MBCommonKit/Protocols (2.0.0)
+  - MBCommonKit/Tracking (2.0.0)
+  - MBNetworkKit/Basic (2.0.0):
+    - Alamofire (~> 4.7)
+  - MBNetworkKit/Socket (2.0.0):
+    - MBCommonKit/Logger (~> 2.0)
+    - MBCommonKit/Protocols (~> 2.0)
+    - Starscream (~> 3.0)
+  - MBRealmKit (2.0.0):
+    - MBCommonKit/Logger (~> 2.0)
+    - MBRealmKit/All (= 2.0.0)
+    - RealmSwift (~> 4.0)
+  - MBRealmKit/All (2.0.0):
+    - MBCommonKit/Logger (~> 2.0)
+    - MBRealmKit/Layer (~> 2.0)
+    - MBRealmKit/UI (~> 2.0)
+    - RealmSwift (~> 4.0)
+  - MBRealmKit/Layer (2.0.0):
+    - MBCommonKit/Logger (~> 2.0)
+    - RealmSwift (~> 4.0)
+  - MBRealmKit/UI (2.0.0):
+    - MBCommonKit/Logger (~> 2.0)
+    - RealmSwift (~> 4.0)
+  - Realm (4.4.0):
+    - Realm/Headers (= 4.4.0)
+  - Realm/Headers (4.4.0)
+  - RealmSwift (4.4.0):
+    - Realm (= 4.4.0)
+  - Sourcery (0.17.0)
+  - Starscream (3.1.1)
+  - SwiftLint (0.39.1)
+  - SwiftProtobuf (1.8.0)
+  - ZIPFoundation (0.9.11)
+
+DEPENDENCIES:
+  - MBCommonKit (~> 2.0)
+  - MBNetworkKit/Basic (~> 2.0)
+  - MBNetworkKit/Socket (~> 2.0)
+  - MBRealmKit (~> 2.0)
+  - Sourcery (~> 0.16)
+  - SwiftLint (~> 0.30)
+  - SwiftProtobuf (~> 1.0)
+  - ZIPFoundation (~> 0.9)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - MBCommonKit
+    - MBNetworkKit
+    - MBRealmKit
+    - Realm
+    - RealmSwift
+    - Sourcery
+    - Starscream
+    - SwiftLint
+    - SwiftProtobuf
+    - ZIPFoundation
+
+SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  MBCommonKit: fb0965b35766ae7b5038aeecd4ce34a0db888983
+  MBNetworkKit: cd4052b210f8b88c63e3d8347c87fd989ffe6a22
+  MBRealmKit: 6e8ab03007619b2a0085a681053ec6e5bdca7a63
+  Realm: e125f464884cda953ebefe70c671b75b03b81b9b
+  RealmSwift: 33656a42bd300959a081fc13347376bc478071af
+  Sourcery: 3ed61be7c8a1218fce349266139379dba477efe0
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
+  SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
+  ZIPFoundation: b1f0de4eed33e74a676f76e12559ab6b75990197
+
+PODFILE CHECKSUM: 8e3a9f2732bfed532fa4d7635559ebc040c7e713
+
+COCOAPODS: 1.9.0
