@@ -7,6 +7,10 @@
 ![Platform](https://img.shields.io/cocoapods/p/MBCarKit)
 ![Version](https://img.shields.io/cocoapods/v/MBCarKit)
 
+## This repository is archived.
+
+Mercedes-Benz Mobile SDK is archived and no longer officially supported. You can find more information about this decision in the [news article](https://developer.mercedes-benz.com/news/mercedes-benz-mobile-sdk-sundown) on Mercedes-Benz developer portal.
+
 ## Requirements
 
 - Xcode 10.3 / 11.x
